@@ -134,4 +134,3 @@ spec:
       - name: logcollector
         persistentVolumeClaim:
           claimName: "azurefile"
-      

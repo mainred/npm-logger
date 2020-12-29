@@ -19,7 +19,7 @@ echo "Dumping IPSET LISTS"
 ipset list > $LOGDIR/ipsetlist.txt
 echo "Dumping ROUTE LISTS"
 ip route list >> $LOGDIR/iproute.txt
-ip rule >> $LOGDIR/ipsetlist.txt
+ip rule >> $LOGDIR/iproute.txt
 
 echo "Dumping kubectl network policy all name-spaces"
 kubectl get networkpolicy --all-namespaces >> $LOGDIR/all-networkpolicies.txt
@@ -32,8 +32,9 @@ echo "" >> $LOGDIR/all-pods.txt
 kubectl get pods --all-namespaces -o yaml >> $LOGDIR/all-pods.txt
 
 echo "Dumping kubectl cluster-info"
-kubectl cluster-info >> $LOGDIR/cluserinfo.txt
-kubectl version >> $LOGDIR/cluserinfo.txt
+kubectl cluster-info >> $LOGDIR/clusterinfo.txt
+echo "" >> $LOGDIR/clusterinfo.txt
+kubectl version >> $LOGDIR/clusterinfo.txt
 
 echo "finished to collect log: $(date)" >> $LOGDIR/date.txt
 
