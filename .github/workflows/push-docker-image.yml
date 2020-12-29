@@ -25,5 +25,5 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: docker.pkg.github.com
         # github package repo format: my-org/my-repo/my-image
-        repository: aksdebug/npm-logger/npm-logger
+        repository: mainred/npm-logger/npm-logger
         tag_with_ref: true
