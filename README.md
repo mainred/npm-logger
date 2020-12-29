@@ -1,30 +1,28 @@
-Npm logger is a tool to get all logs needed to ts azure npm 
+# npm-log-collector
 
-very simple to use just run the yaml file it will install ds ,and see the logs in a dynamic pvc share.
+## introduction
 
-Detail instructions : 
+Npm logger is a tool to get all logs needed to ts azure npm. It collects diagnostic info by one shot, and send the file to the Azure file share under node resource group with name like _MC_myResourceGroup_myAKSCluster_eastus_
 
-1. Git clone the repo to your local pc 
-2. Edit the newyaml.yaml so it will match your cluster name (see remark on yaml)
-3. Run kubectl create -f newyaml.yaml
-4. Place your cluster config file in the root of the shared storage account
-5. Wait untill the pod reports completed.
-6. Download the data and provide to support
-7. Delete the daemonset by kubectl delete -f newyaml.yaml
+## Detail instructions
 
-collects :
+1. Git clone the repo to your local pc
+2. Run the following command to start to collect diagonstic info
+    `kubectl create -f npm-log-collector.yaml`
+3. Wait untill the pod reports completed.
+    You may find all the zipped files, named by hostnmae, in the Azure file share
+4. Download the data and provide to support
+5. Delete the daemonset by `kubectl delete -f npm-log-collector.yaml`
 
-iptables -L -t filter -n 
+## collects
 
-ipset list
-
-iptables-save
-
-npm-logs
-
-kubectl get pods 
-
-kubectl get networkpolicy
-
-
-
+- iptables -L -t filter -n
+- ipset list
+- iptables-save
+- ip route
+- ip rule
+- npm-logs
+- kubectl get pods
+- kubectl get networkpolicy
+- kubectl get cluster-info
+- kubectl version
