@@ -2,7 +2,7 @@
 
 ## introduction
 
-Npm logger is a tool to get all logs needed to ts azure npm. It collects diagnostic info by one shot, and send the file in the Azure file share under node resource group with name like _MC_myResourceGroup_myAKSCluster_eastus_
+Npm logger is a tool to get all logs needed to ts azure npm. It collects diagnostic info by one shot, and send the file to the Azure file share under node resource group with name like _MC_myResourceGroup_myAKSCluster_eastus_
 
 ## Detail instructions
 
