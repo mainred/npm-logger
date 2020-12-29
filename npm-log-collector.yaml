@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: npm-log-collector
+  name: npm-log-collector3
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: npm-log-collector
+  name: npm-log-collector3
 rules:
   - apiGroups: [""]
     resources:
@@ -23,27 +23,27 @@ rules:
   apiVersion: v1
   kind: ServiceAccount
   metadata:
-    name: npm-log-collector
-    namespace: npm-log-collector
+    name: npm-log-collector3
+    namespace: npm-log-collector3
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: npm-log-collector
-  namespace: npm-log-collector
+  name: npm-log-collector3
+  namespace: npm-log-collector3
 subjects:
   - kind: ServiceAccount
-    name: npm-log-collector
-    namespace: npm-log-collector
+    name: npm-log-collector3
+    namespace: npm-log-collector3
 roleRef:
   kind: ClusterRole
-  name: npm-log-collector
+  name: npm-log-collector3
   apiGroup: rbac.authorization.k8s.io
 ---
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: azurefile
+  name: azurefile3
 provisioner: kubernetes.io/azure-file
 mountOptions:
   - dir_mode=0777
@@ -56,12 +56,12 @@ parameters:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: azurefile
-  namespace: npm-log-collector
+  name: azurefile3
+  namespace: npm-log-collector3
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: azurefile
+  storageClassName: azurefile3
   resources:
     requests:
       storage: 100Gi
@@ -70,7 +70,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: azure-npm-logger
-  namespace: npm-log-collector
+  namespace: npm-log-collector3
   labels:
     app: azure-npm-logger-logger
 spec:
@@ -84,7 +84,7 @@ spec:
       annotations:
         scheduler.alpha.kubernetes.io/critical-pod: ''
     spec:
-      serviceAccountName: npm-log-collector
+      serviceAccountName: npm-log-collector3
       tolerations:
       - key: CriticalAddonsOnly
         operator: Exists
@@ -92,7 +92,7 @@ spec:
         beta.kubernetes.io/os: linux
       containers:
         - name: azure-npm-logger
-          image: dinorg/npm-logger:v2
+          image: aksdebug/npm-logger:v1.0.0
           imagePullPolicy: Always
           securityContext:
             privileged: true
@@ -102,8 +102,6 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: spec.nodeName
-            - name: clustername
-              value: npm-dns
           volumeMounts:
           - name: xtables-lock
             mountPath: /run/xtables.lock
@@ -133,4 +131,4 @@ spec:
         emptyDir: {}
       - name: logcollector
         persistentVolumeClaim:
-          claimName: "azurefile"
+          claimName: "azurefile3"
